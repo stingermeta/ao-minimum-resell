@@ -6,7 +6,7 @@ profit_tax = 0.1
 total_tax = listing_tax + profit_tax
 
 # Replace the number with how much you bought an item for
-drachma_spent = 1000000
+drachma_spent = None
 
 # Return the minimum price you should sell at to make a profit of at least 1 drachma
 def min_resell_price(spent):
@@ -18,8 +18,11 @@ def min_resell_price(spent):
         elif(spent > max_price):
             print (rule_text + ', provided value (' + str(spent) + ') exceeds the limit of ' + str(max_price) + '!')
         elif(spent < 1):
-            print (rule_text + ', provided value ' + str(spent) + ')  is less than 1!')
+            print (rule_text + ', provided value ' + str(spent) + ') is less than 1!')
     else:
-        print (rule_text + ', provided value (' + str(spent) + ')  is not an integer!')
+        print (rule_text + ', provided value (' + str(spent) + ') is not an integer!')
 
-print(min_resell_price(drachma_spent))
+result = (min_resell_price(drachma_spent))
+
+if result:
+    print('You spent ' + str(f"{drachma_spent:,}") + ' drachma on an item; your minimum profitable resale price is ' + str(f"{result:,}") + ' drachma.')
