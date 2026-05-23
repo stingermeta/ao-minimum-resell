@@ -1,28 +1,29 @@
 import math
 
+# Marketplace constraints
 max_price = 5000000
+min_price = 1
 listing_tax = 0.025
-profit_tax = 0.1
-total_tax = listing_tax + profit_tax
+sales_tax = 0.1
 
-# Replace the number with how much you bought an item for
-drachma_spent = 10000
+# Replace the number with the drachma spent on purchasing items
+drachma_spent = 100000
+# Replace the number with the amount of items to resell
+resell_quantity = 24
 
-# Return the minimum price you should sell at to make a profit of at least 1 drachma
-def min_resell_price(spent):
-    rule_text = 'drachma_spent must be an integer greater than 0 and less than or equal to ' + str(max_price)
-
-    if(isinstance(spent, int)):
-        if(spent <= max_price and spent > 0):
-            return (math.ceil((spent + 1) / (1 - 1 * total_tax)))
-        elif(spent > max_price):
-            print (rule_text + '; provided value (' + str(spent) + ') exceeds the limit of ' + str(max_price) + '!')
-        elif(spent < 1):
-            print (rule_text + '; provided value ' + str(spent) + ') is less than 1!')
+def min_resell_price(spent, quantity):
+    if(isinstance(quantity, int)):
+        if(isinstance(spent, int)):
+            if(spent < min_price):
+                print('drachma_spent must be an integer greater than ' + str(min_price) + ' and less than ' + str(max_price) + '!')
+            elif(spent > max_price):
+                print('drachma_spent must be an integer greater than ' + str(min_price) + ' and less than ' + str(max_price) + '!')
+            else:
+                return(math.ceil((drachma_spent + 1) / (quantity - listing_tax - (quantity * sales_tax))))
     else:
-        print (rule_text + '; provided value (' + str(spent) + ') is not an integer!')
+        print('resell_quantity must be an integer greater than 0!')
 
-result = (min_resell_price(drachma_spent))
+result = min_resell_price(drachma_spent, resell_quantity)
 
 if result:
-    print('You spent ' + str(f"{drachma_spent:,}") + ' drachma on an item; your minimum profitable resale price is ' + str(f"{result:,}") + ' drachma.')
+    print('You have spent ' + str(f"{drachma_spent:,}") + ' drachma and would like to resell ' + str(f"{resell_quantity:,}") + ' items; your minimum profitable resale listing price is ' + str(f"{result:,}") + ' drachma.')
